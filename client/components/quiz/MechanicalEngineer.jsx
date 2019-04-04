@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 import QuizCard from './QuizCard';
 import { setResultFor } from '../../actions/index';
+import { formValidation } from './formValidationUtils';
 
 class MechanicalEngineerForm extends Component {
   constructor(props) {
@@ -39,40 +40,48 @@ class MechanicalEngineerForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let question1 = this.state.question1;
-    if (question1.answer.length === 0) {
-      this.setState({
-        question1: {
-          ...this.state.question1,
-          totalAttempt: this.state.question1.totalAttempt + 1,
-          errorMessage: 'This field must have an answer',
-          hasCorrectAnswer: false
-        }
-      });
-    } else if (question1.answer !== question1.questionAnswer ) {
-      this.setState({
-        question1: {
-          ...this.state.question1,
-          totalAttempt: this.state.question1.totalAttempt + 1,
-          errorMessage: 'Incorrect answer',
-          hasCorrectAnswer: false
-        }
-      });
-    } else {
-      this.setState({
-        question1: {
-          ...this.state.question1,
-          hasCorrectAnswer: true
-        }
-      }, function() {
-        const { question, answer, totalAttempt } = this.state.question1;
-        this.props.setResultFor('MechanicalEngineer', {
-          question,
-          answer,
-          totalAttempt
-        });
-      });
-    }
+    let question1Details = formValidation(this.state);
+
+    this.setState({
+      question1: {...question1Details}
+    });
+
+
+
+    // let question1 = this.state.question1;
+    // if (question1.answer.length === 0) {
+    //   this.setState({
+    //     question1: {
+    //       ...this.state.question1,
+    //       totalAttempt: this.state.question1.totalAttempt + 1,
+    //       errorMessage: 'This field must have an answer',
+    //       hasCorrectAnswer: false
+    //     }
+    //   });
+    // } else if (question1.answer !== question1.questionAnswer ) {
+    //   this.setState({
+    //     question1: {
+    //       ...this.state.question1,
+    //       totalAttempt: this.state.question1.totalAttempt + 1,
+    //       errorMessage: 'Incorrect answer',
+    //       hasCorrectAnswer: false
+    //     }
+    //   });
+    // } else {
+    //   this.setState({
+    //     question1: {
+    //       ...this.state.question1,
+    //       hasCorrectAnswer: true
+    //     }
+    //   }, function() {
+    //     const { question, answer, totalAttempt } = this.state.question1;
+    //     this.props.setResultFor('MechanicalEngineer', {
+    //       question,
+    //       answer,
+    //       totalAttempt
+    //     });
+    //   });
+    // }
   }
 
   render() {
