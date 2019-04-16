@@ -1,4 +1,4 @@
-##eSpark Learning take home assignment
+## Spark Learning take home assignment
 Small take home assignment built to record student interactions and behavior. Less emphasis on on user experience and other technical aspect.
 
 ### How to start application
